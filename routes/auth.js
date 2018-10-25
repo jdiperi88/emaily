@@ -7,9 +7,11 @@ Router.get(
 	passport.authenticate("google", { scope: ["profile", "email"] })
 );
 
+//this is the callback route designated in the google developer console
 Router.get("/google/callback", passport.authenticate("google"));
 
 Router.get("/current_user", (req, res) => {
+	// res.send(req.session);
 	res.send(req.user);
 });
 Router.get("/logout", (req, res) => {
