@@ -22,14 +22,13 @@ app.use(
 
 app.use(passport.initialize());
 app.use(passport.session());
-
+app.get("/", (req, res) => {
+	res.send({ hi: "welcome" });
+});
 //passport config
 require("./services/passport");
 const authRoutes = require("./routes/auth");
 
-app.get("/", (req, res) => {
-	res.send({ hi: "welcome" });
-});
 app.use("/auth", authRoutes);
 const port = process.env.PORT || 3000;
 
