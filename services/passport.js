@@ -29,26 +29,20 @@ passport.use(
 			callbackURL: "/auth/google/callback",
 			proxy: true
 		},
-		(accessToken, refreshToken, profile, done) => {
-			console.log(`access token: ${accessToken}`);
-			console.log(`refresh token: ${refreshToken}`);
-			console.log(`profile: ${JSON.stringify(profile)}`);
-			console.log(`done: ${done}`);
-			User.findOne({ googleID: profile.id }).then(existingUser => {
-				if (existingUser) {
-					//we already have that user
+		async (accessToken, refreshToken, profile, done) => {
+			console.log(profile);
+			const existingUser = await User.findOne({ googleID: profile.id });
+			if (existingUser) {
+				//we already have that user
 
-					//done() allows passport to know that it can proceed to the next step of the authentication
-					//first argument is where an error argument is passed in
-					// second argument is the user information that was created
-					done(null, existingUser);
-				} else {
-					// since the new user to mongodb is asynch, we need to make sure we chain .then to invoke done once the insertion has been completed.
-					new User({ googleID: profile.id }).save().then(newUser => {
-						done(null, newUser);
-					});
-				}
-			});
+				//done() allows passport to know that it can proceed to the next step of the authentication
+				//first argument is where an error argument is passed in
+				// second argument is the user information that was created
+				return done(null, existingUser);
+			}
+			// since the new user to mongodb is asynch, we need to make sure we chain .then to invoke done once the insertion has been completed.
+			const newUser = await new User({ googleID: profile.id }).save();
+			done(null, newUser);
 		}
 	)
 );
