@@ -8,14 +8,19 @@ Router.get(
 );
 
 //this is the callback route designated in the google developer console
-Router.get("/google/callback", passport.authenticate("google"));
+Router.get("/google/callback", passport.authenticate("google"), function(
+	req,
+	res
+) {
+	res.redirect("/surveys");
+});
 
 Router.get("/current_user", (req, res) => {
-	// res.send(req.session);
+	// res.send("user");
 	res.send(req.user);
 });
 Router.get("/logout", (req, res) => {
 	req.logout();
-	res.send(req.user);
+	res.redirect("/");
 });
 module.exports = Router;
