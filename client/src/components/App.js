@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import Header from "./Header";
 import Landing from "./Landing";
 import { connect } from "react-redux";
+import Payments from "./Payments";
 
 import * as actions from "../actions/index";
 

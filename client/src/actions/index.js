@@ -5,4 +5,8 @@ export const fetchUser = () => async dispatch => {
 	const res = await axios.get("/auth/current_user");
 	dispatch({ type: FETCH_USER, payload: res.data });
 };
-console.log("STRIPE", process.env.REACT_APP_STRIPE_KEY);
+
+export const handleToken = token => async dispatch => {
+	const res = await axios.post("/api/stripe", token);
+	dispatch({ type: FETCH_USER, payload: res.data });
+};
