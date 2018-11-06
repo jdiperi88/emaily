@@ -6,6 +6,7 @@ import * as actions from "../actions";
 class Payments extends Component {
 	render() {
 		return (
+			//Injects a credit card checkout modal that sends info directly to the stripe api
 			<StripeCheckout
 				name="Emaily"
 				description="$5 for 5 email credits"

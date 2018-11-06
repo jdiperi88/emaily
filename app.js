@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const keys = require("./config/keys");
 const cookieSession = require("cookie-session");
 const passport = require("passport");
+const bodyParser = require("body-parser");
 
 //importing models Schema
 const users = require("./models/User");
@@ -11,6 +12,9 @@ const users = require("./models/User");
 mongoose.connect(keys.mongoURI);
 
 const app = express();
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 //this tells express to use a cookie session, and we set the cookie to expire after 30 days
 app.use(
@@ -28,8 +32,11 @@ app.get("/", (req, res) => {
 //passport config
 require("./services/passport");
 const authRoutes = require("./routes/auth");
+const apiRoutes = require("./routes/api");
 
+app.use("/api", apiRoutes);
 app.use("/auth", authRoutes);
+
 const port = process.env.PORT || 3001;
 
 app.listen(port, function() {

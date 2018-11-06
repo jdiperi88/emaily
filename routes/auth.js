@@ -15,10 +15,6 @@ Router.get("/google/callback", passport.authenticate("google"), function(
 	res.redirect("/surveys");
 });
 
-Router.get("/current_user", (req, res) => {
-	// res.send("user");
-	res.send(req.user);
-});
 Router.get("/logout", (req, res) => {
 	req.logout();
 	res.redirect("/");
