@@ -35,17 +35,17 @@ const apiRoutes = require("./routes/api");
 app.use("/api", apiRoutes);
 app.use("/auth", authRoutes);
 
-if (process.env.NODE_ENV == "production") {
-	// Express will serve up production assets
-	//like main.css and main.js
+// Express will serve up production assets
+//like main.css and main.js
+if (process.env.NODE_ENV) {
 	app.use(express.static("client/build"));
-
-	//express will serve index.js file if it doesnt recognize the route
-	const path = require("path");
-	app.get("*", (req, res) => {
-		res.sendFile(__dirname, "client", "build", "index.html");
-	});
 }
+
+//express will serve index.js file if it doesnt recognize the route
+const path = require("path");
+app.get("*", (req, res) => {
+	res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+});
 
 const port = process.env.PORT || 3001;
 
