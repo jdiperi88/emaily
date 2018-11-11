@@ -7,6 +7,7 @@ const bodyParser = require("body-parser");
 
 //importing models Schema
 const users = require("./models/User");
+const survey = require("./models/Survey");
 
 //connecting to the hosted mongodb
 mongoose.connect(keys.mongoURI);
@@ -31,9 +32,7 @@ app.use(passport.session());
 require("./services/passport");
 const authRoutes = require("./routes/auth");
 const apiRoutes = require("./routes/api");
-app.get("/google674ca549e4f262b2.html", (req, res) => {
-	res.render("google674ca549e4f262b2.html");
-});
+
 app.use("/api", apiRoutes);
 app.use("/auth", authRoutes);
 
