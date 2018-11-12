@@ -6,6 +6,8 @@ const requireLogin = require("../middleware/requireLogin");
 const requireCredits = require("../middleware/requireCredits");
 const mongoose = require("mongoose");
 const Survey = mongoose.model("surveys");
+const Mailer = require("../services/Mailer");
+const surveyTemplate = require("../services/emailTemplates");
 
 Router.get("/current_user", (req, res) => {
 	res.send(req.user);
@@ -23,8 +25,9 @@ Router.post("/stripe", requireLogin, async (req, res) => {
 	res.send(user);
 });
 
-Router.post("/api/surveys", requireLogin, requireCredits, (req, res) => {
+Router.post("/surveys", requireLogin, requireCredits, (req, res) => {
 	const { title, subject, body, recipients } = req.body;
+	console.log(req.body);
 
 	const survey = new Survey({
 		title,
@@ -36,6 +39,8 @@ Router.post("/api/surveys", requireLogin, requireCredits, (req, res) => {
 		_user: req.user.id,
 		dateSent: Date.now()
 	});
+	const mailer = new Mailer(survey, surveyTemplate(survey));
+	mailer.send();
 });
 
 module.exports = Router;

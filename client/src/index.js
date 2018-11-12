@@ -9,6 +9,9 @@ import reducers from "./reducers";
 import middleware from "./middleware/index";
 import reduxThunk from "redux-thunk";
 
+import axios from "axios";
+window.axios = axios;
+
 const store = createStore(reducers, {}, middleware);
 ReactDOM.render(
 	<Provider store={store}>
@@ -16,3 +19,10 @@ ReactDOM.render(
 	</Provider>,
 	document.getElementById("root")
 );
+
+const survey = {
+	title: "my title",
+	subject: "my subject",
+	recipients: "jdiperi88@gmail.com",
+	body: "heres the body of the email"
+};
