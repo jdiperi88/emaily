@@ -25,7 +25,7 @@ Router.post("/stripe", requireLogin, async (req, res) => {
 	res.send(user);
 });
 
-Router.get("/surveys", (req, res) => {
+Router.get("/survey/thanks", (req, res) => {
 	res.send("thanks for voting!");
 });
 
