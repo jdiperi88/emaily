@@ -3,15 +3,9 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import Header from "./Header";
 import Landing from "./Landing";
 import { connect } from "react-redux";
-
+import Dashboard from "./Dashboard";
 import * as actions from "../actions/index";
-
-const Dashboard = () => {
-	return <h2>Dashboard</h2>;
-};
-const SurveyNew = () => {
-	return <h2>SurveyNew</h2>;
-};
+import SurveyNew from "./surveys/SurveyNew";
 
 class App extends Component {
 	componentDidMount() {
