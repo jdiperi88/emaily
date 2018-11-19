@@ -13,6 +13,11 @@ Router.get("/current_user", (req, res) => {
 	res.send(req.user);
 });
 
+Router.post("/surveys/webhooks", (req, res) => {
+	console.log(req.body);
+	res.send({});
+});
+
 Router.post("/stripe", requireLogin, async (req, res) => {
 	const charge = await stripe.charges.create({
 		amount: 500,
